@@ -1,0 +1,101 @@
+import { MaxUint256 } from '@ethersproject/constants'
+import { TransactionResponse } from '@ethersproject/providers'
+
+import { useCallback, useMemo } from 'react'
+
+import { useTransactionAdder, useHasPendingApproval } from '../state/transactions/hooks'
+
+import { calculateGasMargin } from '../mm-utils'
+import { useTokenContract } from './useContract'
+import { useActiveWeb3React } from './index'
+import { BigNumber, BigNumberish } from 'ethers'
+import { useMMTokenAllowance } from './MMAllowance'
+
+
+export enum ApprovalState {
+  UNKNOWN,
+  NOT_APPROVED,
+  PENDING,
+  APPROVED
+}
+
+// returns a variable indicating the state of the approval and a function which approves if necessary or early returns
+export function useMMApproveCallback(
+  tokenAddress:string, 
+  amountToApprove?:BigNumberish,
+  spender?: string
+): [ApprovalState, () => Promise<void>] {
+  const { account } = useActiveWeb3React()
+  const [currentAllowance, symbol] = useMMTokenAllowance( tokenAddress, account ?? undefined, spender)
+  const pendingApproval = useHasPendingApproval(tokenAddress, spender)
+
+  // check the current approval status
+  const approvalState: ApprovalState = useMemo(() => {
+    if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
+
+    // we might not have enough data to know whether or not we need to approve
+    if (!currentAllowance) return ApprovalState.UNKNOWN
+
+    // amountToApprove will be defined if currentAllowance is
+    return BigNumber.from(currentAllowance).lt(amountToApprove)
+      ? pendingApproval
+        ? ApprovalState.PENDING
+        : ApprovalState.NOT_APPROVED
+      : ApprovalState.APPROVED
+  }, [amountToApprove, currentAllowance, pendingApproval, spender])
+
+  const tokenContract = useTokenContract(tokenAddress)
+  const addTransaction = useTransactionAdder()
+
+  const approve = useCallback(async (): Promise<void> => {
+    if (approvalState !== ApprovalState.NOT_APPROVED) {
+      console.error('approve was called unnecessarily')
+      return
+    }
+    if (!tokenAddress) {
+      console.error('no token')
+      return
+    }
+
+    if (!tokenContract) {
+      console.error('tokenContract is null')
+      return
+    }
+
+    if (!amountToApprove) {
+      console.error('missing amount to approve')
+      return
+    }
+
+    if (!spender) {
+      console.error('no spender')
+      return
+    }
+
+    let useExact = false
+    const estimatedGas = await tokenContract.estimateGas.approve(spender, MaxUint256).catch(() => {
+      // general fallback for tokens who restrict approval amounts
+      useExact = true
+      return tokenContract.estimateGas.approve(spender, amountToApprove.toString())
+    })
+
+    return tokenContract
+      .approve(spender, useExact ? amountToApprove.toString() : MaxUint256, {
+        gasLimit: calculateGasMargin(estimatedGas)
+      })
+      .then((response: TransactionResponse) => {
+        addTransaction(response, {
+          summary: 'Approve ' + symbol,
+          approval: { tokenAddress: tokenAddress, spender: spender }
+        })
+      })
+      .catch((error: Error) => {
+        console.debug('Failed to approve token', error)
+        throw error
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [approvalState, tokenAddress, tokenContract, amountToApprove, spender, addTransaction])
+
+  return [approvalState, approve]
+}
+

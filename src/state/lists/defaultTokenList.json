@@ -1,0 +1,48 @@
+{
+  "name": "Uniswap Default List",
+  "timestamp": "2021-01-21T23:57:10.982Z",
+  "version": {
+    "major": 2,
+    "minor": 0,
+    "patch": 0
+  },
+  "tags": {},
+  "logoURI": "ipfs://bafkreiaylkhgpknwywei6tz4hlus3kdairyeh5lx43wdse55xlao6ktaim",
+  "keywords": [
+    "tcl",
+    "default"
+  ],
+  "tokens": [
+    {
+      "name": "USDT Token",
+      "address": "0xB684FAEBCF1EE8b4EcAc32DCB92d96d6DE67d5d2",
+      "symbol": "USDT",
+      "decimals": 18,
+      "chainId": 97,
+      "logoURI": "ipfs://QmRNroXjmQYMtxxFaR5jN26hStjwnyDwD4VfrVmzfChcrs"
+    },
+    {
+      "name": "TCL Token",
+      "address": "0x7Ae387021a0F2d5Ca0fa1E899896f84ffBEF9419",
+      "symbol": "TCL",
+      "decimals": 18,
+      "chainId": 97,
+      "logoURI": "ipfs://bafkreiaylkhgpknwywei6tz4hlus3kdairyeh5lx43wdse55xlao6ktaim"
+    },{
+      "name": "Tether USD",
+      "address": "0x55d398326f99059fF775485246999027B3197955",
+      "symbol": "USDT",
+      "decimals": 18,
+      "chainId": 56,
+      "logoURI": "ipfs://QmRNroXjmQYMtxxFaR5jN26hStjwnyDwD4VfrVmzfChcrs"
+    },
+    {
+      "name": "TriColor",
+      "address": "0x2036aC0A6DB473D0eF7Ebb66F4f63b9De1640ee1",
+      "symbol": "TCL",
+      "decimals": 18,
+      "chainId": 56,
+      "logoURI": "ipfs://bafkreiaylkhgpknwywei6tz4hlus3kdairyeh5lx43wdse55xlao6ktaim"
+    }
+  ]
+}

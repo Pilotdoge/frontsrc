@@ -1,0 +1,10 @@
+export  enum ChainId {
+  MAINNET = 1,
+  ROPSTEN = 3,
+  RINKEBY = 4,
+  GÖRLI = 5,
+  KOVAN = 42,
+  SCROLL_ALPHA = 534353,
+  SCROLL_SEPOLIA = 534351,
+  SCROLL = 534352
+}

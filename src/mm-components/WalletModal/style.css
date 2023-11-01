@@ -1,0 +1,26 @@
+.wallet-model.to-connect-wallet-model{
+  width: 724px !important;
+  height: auto !important;
+  max-width: 724px !important;
+  background-color: transparent;
+  align-self: center !important;
+ 
+}
+.wallet-model.to-connect-wallet-model .select-wallet-dialog .back-pre{
+  padding-top: 64px;
+  padding-left: 60px;
+  font-weight: bolder;
+  color: #804118;
+}
+@media screen and (max-width: 720px) {
+  .wallet-model.to-connect-wallet-model{
+    width: 21.56rem !important;
+    height: 14.44rem !important;
+    align-self: center !important;
+  }
+  .wallet-model.to-connect-wallet-model .select-wallet-dialog .back-pre{
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+
+}
