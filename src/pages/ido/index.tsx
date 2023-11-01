@@ -507,7 +507,9 @@ export default function IdoComp({ idName }: { idName: string }) {
 
       <div className='ido-bottom'>
         <p className='common-tip'>{t('commonBotTip')}</p>
-        <p className='ido-tip'>{t('idoBottip')}</p>
+        <p className='ido-tip' dangerouslySetInnerHTML={{
+          __html: t('idoBottip')
+        }}></p>
       </div>
     </ComBgFra>
   </BannerFrame>)

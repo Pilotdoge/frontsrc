@@ -254,7 +254,7 @@ export default function AboutComp({idName}:{idName: string}){
         </div>
         <div className='sub-desc-item'>
           <span className='num-val'>{aboutNum.fundAmount===''?<Loader size="40px" stroke="#000" />:aboutNum.fundAmount}</span>
-          <div className='num-label'>{t('Amount of Funding (ETH)')}</div>
+          <div className='num-label'>{t('Amount of Funding')}</div>
         </div>
       </div>
       <div className='common-bottom-tip'>{t('commonBotTip')}</div>
