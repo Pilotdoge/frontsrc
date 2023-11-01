@@ -245,7 +245,7 @@ export default function Header() {
           <StyleNavLinkComp   idName={`roadmap`} href={'/#roadmap'} pathKey={'#roadmap'}>
             {t('Roadmap')}
           </StyleNavLinkComp>
-          <StyleNavLinkComp  target="_blank"  href={'https://github.com/Pilotdoge/frontsrc'} pathKey={'#github'}>
+          <StyleNavLinkComp  target="_blank"  href={'https://github.com/orgs/Pilotdoge/repositories'} pathKey={'#github'}>
             {t('Github')}
           </StyleNavLinkComp>
          

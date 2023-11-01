@@ -251,7 +251,7 @@ function MenuDrawer() {
             <StyleNavLinkComp isMenudraw={true} className='menudraw-item' idName={`roadmap`} href={'/#roadmap'} pathKey={'#roadmap'}>
               {t('Roadmap')}
             </StyleNavLinkComp>
-            <StyleNavLinkComp isMenudraw={true} className='menudraw-item'  target="_blank"  href={'https://github.com/Pilotdoge/frontsrc'} pathKey={'#github'}>
+            <StyleNavLinkComp isMenudraw={true} className='menudraw-item'  target="_blank"  href={'https://github.com/orgs/Pilotdoge/repositories'} pathKey={'#github'}>
               {t('Github')}
             </StyleNavLinkComp>
           </StyledNavFrame>
